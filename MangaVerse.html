@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MangaVerse</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f4f5fb;--card:#fff;--tx:#141828;--mu:#6b7186;--bd:#e3e5ef;--ac:#7c5cff;--ac2:#ff5c93}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b0d1a;--card:#151933;--tx:#f1f2fb;--mu:#8b91b0;--bd:#232848}}
+:root[data-theme="dark"]{--bg:#0b0d1a;--card:#151933;--tx:#f1f2fb;--mu:#8b91b0;--bd:#232848}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+*{box-sizing:border-box}
+body{margin:0;height:100%;background:var(--bg);color:var(--tx);font-family:Tahoma,system-ui,sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}
+#shell{height:100%;display:flex;flex-direction:column;max-width:900px;margin:auto}
+.top{padding:10px 16px;display:flex;align-items:center;gap:10px}
+.logo{font-weight:900;font-size:22px;background:linear-gradient(90deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ic{width:38px;height:38px;border-radius:12px;border:1px solid var(--bd);background:var(--card);cursor:pointer}
+#view{flex:1;overflow-y:auto;padding:0 16px 24px}
+h2{font-size:18px;margin:20px 0 10px;display:flex;justify-content:space-between}
+.feat{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:0 16px}
+.fc{flex:none;width:86%;max-width:420px;height:190px;border-radius:20px;position:relative;overflow:hidden;scroll-snap-align:center;cursor:pointer;background:var(--card)}
+.fc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.fc:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#000d,#0000 70%)}
+.fc div{position:absolute;bottom:12px;inset-inline:14px;z-index:1;color:#fff;font-weight:700;font-size:18px}
+.row{display:flex;gap:12px;overflow-x:auto;margin:0 -16px;padding:0 16px}.row .card{flex:none;width:124px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px}
+.card{cursor:pointer}
+.card img{width:100%;aspect-ratio:5/7;object-fit:cover;border-radius:14px;background:var(--card);display:block}
+.card .t{font-size:13px;font-weight:700;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .s{font-size:11px;color:var(--mu)}
+.chips{display:flex;gap:8px;overflow-x:auto;margin:8px -16px 0;padding:0 16px}
+.chip{flex:none;padding:6px 16px;border-radius:20px;background:var(--card);border:1px solid var(--bd);color:var(--mu);cursor:pointer;font-size:14px}
+.chip.on{background:linear-gradient(90deg,var(--ac),var(--ac2));color:#fff;border-color:transparent}
+.in{width:100%;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px 14px;margin:6px 0}
+.btn{border:0;border-radius:14px;padding:11px 16px;background:linear-gradient(90deg,var(--ac),var(--ac2));color:#fff;font-weight:700;cursor:pointer}
+.btn.g{background:var(--card);color:var(--tx);border:1px solid var(--bd)}.btn.b{width:100%}
+.empty{padding:34px 16px;text-align:center;color:var(--mu)}.empty i{font-size:38px;display:block;font-style:normal}
+.tabs{display:flex;background:var(--card);border-top:1px solid var(--bd);padding:6px}
+.tabs button{flex:1;background:none;border:0;color:var(--mu);padding:6px;cursor:pointer;font-size:11px;display:flex;flex-direction:column;align-items:center}
+.tabs button i{font-style:normal;font-size:20px}.tabs button.on{color:var(--ac);font-weight:700}
+.sheet{position:fixed;top:0;bottom:0;inset-inline:0;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);background:var(--bg);z-index:20;overflow-y:auto;display:none}
+.sheet.on{display:block}
+.body{padding:12px 16px 30px;max-width:900px;margin:auto}
+.dt{display:flex;gap:14px}.dt img{width:120px;aspect-ratio:5/7;object-fit:cover;border-radius:16px}
+.dt h1{font-size:20px;margin:0}.dt p{margin:2px 0;color:var(--mu);font-size:13px}
+.ch{display:flex;justify-content:space-between;padding:12px 14px;background:var(--card);border:1px solid var(--bd);border-radius:14px;margin:8px 0;cursor:pointer}
+.cm{background:var(--card);border-radius:14px;padding:10px 12px;margin:8px 0;font-size:14px}.cm small{color:var(--mu)}
+#rd{background:#000}#rd img{display:block;width:100%;max-width:720px;margin:auto;min-height:160px}
+.rb{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;padding:10px 12px;background:#000c;color:#fff}.rb span{flex:1;font-size:14px}
+.nx{max-width:720px;margin:auto;padding:24px 16px;display:flex;gap:10px}.nx .btn{flex:1}
+.hero{border-radius:22px;padding:22px 18px;background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;margin-bottom:6px}.hero h1{margin:0 0 4px;font-size:22px}.hero p{margin:0;opacity:.9}.stars{color:#f5b301;font-size:22px;cursor:pointer;letter-spacing:3px}
+.note{background:var(--card);border:1px dashed var(--bd);border-radius:14px;padding:12px;font-size:13px;color:var(--mu);margin:10px 0}
+#toast{position:fixed;bottom:80px;inset-inline:0;margin:auto;width:max-content;max-width:88%;background:#222;color:#fff;padding:10px 18px;border-radius:14px;z-index:60;display:none;font-size:14px}
+</style>
+</head>
+<body>
+<div id="shell"><div class="top"><span class="logo">MangaVerse</span><span style="flex:1"></span><button class="ic" id="th">🌓</button></div><div id="view"></div><nav class="tabs" id="tabs"></nav></div>
+<div class="sheet" id="sh"></div><div class="sheet" id="rd"></div><div id="toast"></div>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const CATS=['أكشن','رومانسي','فانتازيا','رعب','كوميدي','خيال علمي','دراما'];
+let db,usr,as,uid=null,admin=false,canW=true,W=[],FT=new Set(),HD=new Set(),lib={fav:[],hist:{}},tab='home',cat='الكل',st='all',q='',cur=null,cmUnsub=null;
+const toast=m=>{const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.i);toast.i=setTimeout(()=>t.style.display='none',2800)};
+const svg=(t,h,w=400,hh=560)=>'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${w} ${hh}'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='hsl(${h},70%,48%)'/><stop offset='1' stop-color='hsl(${(h+60)%360},70%,18%)'/></linearGradient></defs><rect width='100%' height='100%' fill='url(#g)'/><text x='50%' y='50%' fill='white' font-size='${w/9}' text-anchor='middle' font-family='sans-serif'>${t}</text></svg>`);
+const hue=s=>[...String(s)].reduce((a,c)=>(a*31+c.charCodeAt(0))%360,7);
+const cov=w=>w.cover||svg(esc(w.title),hue(w.title));
+const vis=()=>W.filter(w=>admin||!HD.has(w.id));
+const card=w=>`<div class="card" onclick="openW('${w.id}')"><img loading="lazy" src="${esc(cov(w))}" alt=""><div class="t">${esc(w.title)}</div><div class="s">${esc(w.cat||'')}${HD.has(w.id)?' · مخفي':''}${Date.now()-w.at<6048e5?' · 🆕':''}${w.status=='completed'?' · ✓':''}</div></div>`;
+const grid=l=>l.length?`<div class="grid">${l.map(card).join('')}</div>`:'<div class="empty"><i>📚</i>لا توجد أعمال</div>';
+function tabs(){const t=[['home','🏠','الرئيسية'],['explore','🧭','استكشاف'],['fav','❤️','مكتبتي'],['pub','＋','نشر']];if(admin)t.push(['adm','🛠','الإدارة']);
+ $('#tabs').innerHTML=t.map(([k,i,l])=>`<button class="${tab==k?'on':''}" onclick="go('${k}')"><i>${i}</i>${l}</button>`).join('')}
+function go(t){tab=t;render();$('#view').scrollTop=0}
+function render(){tabs();$('#view').innerHTML=({home,explore,fav:favV,pub,adm})[tab]()}
+function home(){const L=vis();if(!L.length)return `<div class="empty"><i>📖</i>لا توجد أعمال بعد.<br>${admin?'اضغط زر التحميل في تبويب الإدارة أو انشر أول عمل.':'كن أول من ينشر عملًا!'}</div>`;
+ const ft=L.filter(w=>FT.has(w.id)),top=(ft.length?ft:L).slice(0,5),cont=Object.keys(lib.hist).map(id=>L.find(w=>w.id==id)).filter(Boolean);
+ const fc=new Set(L.filter(w=>lib.fav.includes(w.id)).map(w=>w.cat)),rec=fc.size?L.filter(w=>fc.has(w.cat)&&!lib.fav.includes(w.id)).slice(0,10):[];
+ return `<div class="hero"><h1>عالمك الجديد للمانغا العربية</h1><p>${L.length} عمل · اقرأ، احفظ، وانشر أعمالك</p></div><br><div class="feat">${top.map(w=>`<div class="fc" onclick="openW('${w.id}')"><img src="${esc(cov(w))}" alt=""><div>${esc(w.title)}</div></div>`).join('')}</div>`+
+ (cont.length?`<h2>🕘 أكمل القراءة</h2><div class="row">${cont.map(card).join('')}</div>`:'')+
+ (rec.length?`<h2>🎯 مقترح لك</h2><div class="row">${rec.map(card).join('')}</div>`:'')+
+ `<h2>✨ أحدث الأعمال</h2><div class="row">${L.slice(0,12).map(card).join('')}</div><h2>🎲 مفاجأة</h2><button class="btn b" onclick="openW(vis()[Math.floor(Math.random()*vis().length)].id)">اختيار عشوائي</button><div class="note" style="margin-top:20px"><b>عن MangaVerse</b><br>منصة عربية لعشاق المانغا: اكتشف الأعمال، احفظ مفضلتك، تابع الفصول، وانشر إبداعك للمجتمع.</div>`}
+function explore(){let l=vis().filter(w=>(cat=='الكل'||w.cat==cat)&&(st=='all'||w.status==st)&&(!q||(w.title+(w.author||'')).toLowerCase().includes(q.toLowerCase())));
+ return `<input class="in" id="sq" placeholder="🔎 ابحث بالعنوان أو المؤلف…" value="${esc(q)}" oninput="q=this.value;clearTimeout(window.qt);window.qt=setTimeout(()=>{render();const e=$('#sq');e.focus();e.setSelectionRange(q.length,q.length)},250)">
+ <div class="chips">${['الكل',...CATS].map(c=>`<span class="chip ${c==cat?'on':''}" onclick="cat='${c}';render()">${c}</span>`).join('')}</div>
+ <div class="chips">${[['all','كل الحالات'],['ongoing','مستمرة'],['completed','مكتملة']].map(([k,n])=>`<span class="chip ${st==k?'on':''}" onclick="st='${k}';render()">${n}</span>`).join('')}</div><br>`+grid(l)}
+function favV(){if(!uid)return '<div class="empty"><i>🔐</i>سجّل الدخول عبر claude.ai لحفظ مكتبتك</div>';const l=vis().filter(w=>lib.fav.includes(w.id));return `<h2>❤️ مكتبتي (${l.length})</h2>`+grid(l)}
+function pub(){if(!canW||!uid)return '<div class="empty"><i>✍️</i>النشر متاح للمساهمين (Contributor) فما فوق.<br>اطلب من مالك الموقع رفع صلاحيتك.</div>';
+ return `<h2>✍️ انشر عملًا جديدًا</h2><details class="note"><summary><b>📘 دليل المبدع</b></summary><ol style="line-height:1.9"><li>الحجم القياسي B5 أو A5، بدقة 350 dpi للأبيض والأسود و600 dpi للتفاصيل الدقيقة.</li><li>أبقِ النصوص والفقاعات بعيدة عن الحواف 5 مم على الأقل.</li><li>وحّد اتجاه القراءة في العمل كله (يمين←يسار أو العكس).</li><li>جهّز ملخصًا من صفحة واحدة (بداية ووسط ونهاية).</li><li>أرفق رسومات الشخصيات من عدة زوايا وبتعابير مختلفة.</li><li>أنجز 3 إلى 5 صفحات كاملة (حبر وتظليل ونصوص) لتقييم العمل.</li></ol></details><input class="in" id="pt" placeholder="العنوان *"><input class="in" id="pa" placeholder="المؤلف"><select class="in" id="pc">${CATS.map(c=>`<option>${c}</option>`).join('')}</select><select class="in" id="ps"><option value="ongoing">مستمرة</option><option value="completed">مكتملة</option></select><textarea class="in" id="pd" rows="3" placeholder="الوصف"></textarea>
+ <small style="color:var(--mu)">الغلاف</small><input type="file" id="pcv" accept="image/*" class="in"><input class="in" id="pch" placeholder="عنوان الفصل الأول"><small style="color:var(--mu)">صور الفصل بالترتيب ${as?'':'(غير متاح حاليًا)'}</small><input type="file" id="ppg" accept="image/*" multiple class="in" ${as?'':'disabled'}><br><br><button class="btn b" id="pb" onclick="publish()">نشر</button><h2>✍️ أعمالي</h2>${grid(W.filter(w=>w.owner==uid))}`}
+function adm(){const n=W.length;return `<h2>🛠 لوحة الإدارة</h2><div class="note">الأعمال: ${n} · المميّزة: ${FT.size} · المخفية: ${HD.size}</div>
+ <button class="btn b" onclick="demo()">تحميل 6 أعمال تجريبية أصلية</button><br><br><button class="btn b" onclick="addEcho()">📥 إضافة «صدى الأثير» من ملفك</button><h2>كل الأعمال</h2>`+(W.map(w=>`<div class="ch"><span>${esc(w.title)}${HD.has(w.id)?' 🙈':''}${FT.has(w.id)?' ⭐':''}</span><span><button class="btn g" onclick="tgl('featured','${w.id}')">⭐</button> <button class="btn g" onclick="tgl('hidden','${w.id}')">🙈</button> <button class="btn g" onclick="delW('${w.id}')">🗑</button></span></div>`).join('')||'<div class="empty">فارغ</div>')}
+const ask=m=>new Promise(res=>{const d=document.createElement('div');d.style.cssText='position:fixed;inset:0;background:#000a;z-index:99;display:grid;place-items:center;padding:20px';d.innerHTML=`<div style="background:var(--card);color:var(--tx);border-radius:18px;padding:20px;max-width:340px;text-align:center"><p>${esc(m)}</p><button class="btn g" id="dn">إلغاء</button> <button class="btn" id="dy">تأكيد</button></div>`;document.body.appendChild(d);d.querySelector('#dy').onclick=()=>{d.remove();res(true)};d.querySelector('#dn').onclick=()=>{d.remove();res(false)}});
+async function tgl(c,id){try{const d=db.doc(c+'/'+id);(c=='featured'?FT:HD).has(id)?await d.delete():await d.set({at:Date.now()})}catch(e){toast('لا تملك الصلاحية')}}
+async function delW(id){if(!await ask('حذف هذا العمل نهائيًا؟'))return;try{const s=await db.collection('works/'+id+'/chapters').get();for(const d of s.docs)await db.doc('works/'+id+'/chapters/'+d.id).delete();await db.doc('works/'+id).delete();toast('تم الحذف')}catch(e){toast(e.message||'تعذّر الحذف')}}
+async function saveLib(){if(!uid)return toast('سجّل الدخول أولًا');try{await db.doc('data/users/'+uid+'/lib').set(lib)}catch(e){toast('لا يمكن الحفظ بهذه الصلاحية')}}
+function rf(f,max=1000){return new Promise((res,rej)=>{const x=new FileReader();x.onload=()=>{const i=new Image();i.onload=()=>{const s=Math.min(1,max/i.width),c=document.createElement('canvas');c.width=i.width*s;c.height=i.height*s;c.getContext('2d').drawImage(i,0,0,c.width,c.height);c.toBlob(b=>res(b),'image/jpeg',.8)};i.onerror=rej;i.src=x.result};x.readAsDataURL(f)})}
+async function up(f){const b=await rf(f);return (await as.upload(b)).url}
+async function small(f){const b=await rf(f,220);return await new Promise(r=>{const x=new FileReader();x.onload=()=>r(x.result);x.readAsDataURL(b)})}
+async function publish(){const t=$('#pt').value.trim();if(!t)return toast('العنوان مطلوب');const b=$('#pb');b.disabled=true;b.textContent='جارٍ الرفع…';
+ try{const cf=$('#pcv').files[0],pf=[...$('#ppg').files];let cover=null;if(cf)cover=as?await up(cf):await small(cf);
+ const pages=[];for(const f of pf)pages.push(await up(f));
+ const ref=db.collection('works').doc();await ref.set({title:t,author:$('#pa').value.trim(),cat:$('#pc').value,status:$('#ps').value,desc:$('#pd').value.trim(),cover,owner:uid,at:Date.now()});
+ if(pages.length)await db.doc('works/'+ref.id+'/chapters/c1').set({n:1,t:$('#pch').value.trim()||'الفصل 1',pages,at:Date.now()});
+ toast('تم النشر ✅');go('home')}catch(e){toast(e.message||'فشل النشر');b.disabled=false;b.textContent='نشر'}}
+async function openW(id){const w=W.find(x=>x.id==id);if(!w)return;cur=w;const sh=$('#sh');sh.classList.add('on');
+ const cs=await db.collection('works/'+id+'/chapters').orderBy('n').get();w.ch=cs.docs.map(d=>({id:d.id,...d.data()}));let rs={docs:[]};try{rs=await db.collection('works/'+id+'/ratings').get()}catch(e){}const sc=rs.docs.map(d=>d.data().s),avg=sc.length?(sc.reduce((a,b)=>a+b,0)/sc.length).toFixed(1):'—',mine=uid?(rs.docs.find(d=>d.id==uid)?.data().s||0):0;const done=lib.hist[id],f=lib.fav.includes(id),own=uid&&w.owner==uid;
+ sh.innerHTML=`<div class="body"><button class="ic" onclick="closeW()">✕</button><br><br><div class="dt"><img src="${esc(cov(w))}" alt=""><div><h1>${esc(w.title)}</h1><p>${esc(w.author||'')}</p><p>${esc(w.cat||'')} · ${w.status=='completed'?'مكتملة':'مستمرة'}</p></div></div>
+ <div style="display:flex;gap:8px;margin:14px 0">${w.ch.length?`<button class="btn" style="flex:1" onclick="read(${Math.max(0,w.ch.findIndex(c=>c.n==done))})">${done?'أكمل القراءة':'ابدأ القراءة'}</button>`:''}<button class="btn g" onclick="togFav('${id}')">${f?'💔':'❤️'}</button>${own||admin?`<button class="btn g" onclick="chForm('${id}')">＋فصل</button>`:''}</div>
+ <p style="color:var(--mu);line-height:1.8">${esc(w.desc||'')}</p><div style="margin:10px 0">⭐ ${avg} (${sc.length}) <span class="stars">${[1,2,3,4,5].map(n=>`<span onclick="rate('${id}',${n})">${n<=mine?'★':'☆'}</span>`).join('')}</span></div><h2>الفصول</h2>${w.ch.map((c,i)=>`<div class="ch" onclick="read(${i})"><span>${esc(c.t||'الفصل '+c.n)}</span><span style="color:var(--mu)">${done==c.n?'آخر قراءة':'←'}</span></div>`).join('')||'<div class="empty">لا فصول بعد</div>'}
+ <h2>💬 التعليقات</h2><div id="cms"></div>${uid&&canW?`<div style="display:flex;gap:8px"><input class="in" id="ci" placeholder="اكتب تعليقًا…" style="margin:0"><button class="btn" onclick="addC()">إرسال</button></div>`:'<div class="note">سجّل الدخول بصلاحية مساهم للتعليق</div>'}</div>`;
+ cmUnsub&&cmUnsub();cmUnsub=db.collection('works/'+id+'/comments').orderBy('at','desc').limit(50).onSnapshot(async s=>{const d=s.docs.map(x=>({id:x.id,...x.data()}));let P={};try{P=await usr.profiles([...new Set(d.map(x=>x.uid))])}catch(e){}
+ const el=$('#cms');if(el)el.innerHTML=d.map(x=>`<div class="cm"><small>${esc(P[x.uid]?.name||'قارئ')}</small><br>${esc(x.text)}${admin||x.uid==uid?` <span style="cursor:pointer;float:left" onclick="delC('${x.id}')">🗑</span>`:''}</div>`).join('')||'<div class="empty">كن أول من يعلّق</div>'},()=>{})}
+function closeW(){cmUnsub&&cmUnsub();cmUnsub=null;$('#sh').classList.remove('on')}
+async function rate(id,n){if(!uid||!canW)return toast('سجّل الدخول بصلاحية مساهم');try{await db.doc('works/'+id+'/ratings/'+uid).set({s:n});toast('شكرًا لتقييمك ⭐');openW(id)}catch(e){toast('تعذّر التقييم')}}
+async function addC(){const t=$('#ci').value.trim();if(!t)return;try{await db.collection('works/'+cur.id+'/comments').add({uid,text:t.slice(0,500),at:Date.now()});$('#ci').value=''}catch(e){toast('لا يمكنك التعليق بهذه الصلاحية')}}
+async function delC(id){try{await db.doc('works/'+cur.id+'/comments/'+id).delete()}catch(e){toast('تعذّر الحذف')}}
+async function togFav(id){if(!uid)return toast('سجّل الدخول أولًا');const i=lib.fav.indexOf(id);i<0?lib.fav.push(id):lib.fav.splice(i,1);await saveLib();openW(id);render()}
+function chForm(id){$('#sh').innerHTML=`<div class="body"><button class="ic" onclick="openW('${id}')">✕</button><h2>＋ فصل جديد</h2><input class="in" id="cn" type="number" value="${(cur.ch||[]).length+1}"><input class="in" id="ct" placeholder="عنوان الفصل">${as?'<input type="file" id="cp" accept="image/*" multiple class="in">':'<div class="note">رفع الصور غير متاح حاليًا</div>'}<br><button class="btn b" id="cb" onclick="saveCh('${id}')">نشر الفصل</button></div>`}
+async function saveCh(id){const pf=[...($('#cp')?.files||[])];if(!pf.length)return toast('اختر صور الفصل');const b=$('#cb');b.disabled=true;b.textContent='جارٍ الرفع…';
+ try{const pages=[];for(const f of pf)pages.push(await up(f));const n=+$('#cn').value||1;await db.doc('works/'+id+'/chapters/c'+n).set({n,t:$('#ct').value.trim()||'الفصل '+n,pages,at:Date.now()});toast('تم ✅');openW(id)}catch(e){toast(e.message||'فشل');b.disabled=false;b.textContent='نشر الفصل'}}
+async function read(i){const w=cur,c=w.ch[i],r=$('#rd');r.classList.add('on');lib.hist[w.id]=c.n;if(uid)saveLib();
+ r.innerHTML=`<div class="rb"><button class="ic" onclick="$('#rd').classList.remove('on')">✕</button><span>${esc(w.title)} — ${esc(c.t||'الفصل '+c.n)}</span></div><div id="pr" style="position:sticky;top:56px;height:3px;background:linear-gradient(90deg,var(--ac),var(--ac2));transform-origin:right;transform:scaleX(0);z-index:3"></div>`+(c.pages||[]).map(p=>`<img loading="lazy" src="${esc(p)}" alt="">`).join('')+
+ `<div class="nx">${i>0?`<button class="btn g" onclick="read(${i-1})">→ السابق</button>`:''}${i<w.ch.length-1?`<button class="btn" onclick="read(${i+1})">التالي ←</button>`:`<button class="btn" onclick="$('#rd').classList.remove('on')">انتهى ✓</button>`}</div>`;r.scrollTop=0;r.onscroll=()=>{const p=$('#pr');if(p)p.style.transform='scaleX('+r.scrollTop/Math.max(1,r.scrollHeight-r.clientHeight)+')'}}
+const LN=['أين أنا؟!','لن أستسلم!','هذا مستحيل...','انظر! ضوء!','سأحميكم.','هيّا بنا!','ما هذا الصوت؟','نبدأ من جديد.'];
+const PL=[[[20,20,660,300],[20,340,320,300],[360,340,320,300],[20,660,660,300]],[[20,20,320,460],[360,20,320,460],[20,500,660,460]],[[20,20,660,200],[20,240,660,360],[20,620,320,340],[360,620,320,340]]];
+function face(cx,cy,r,v,h,m){const k="stroke='#111' stroke-width='4'",hc=`hsl(${h%360},55%,${v==1?55:25}%)`;
+ let s=`<path d='M${cx-r*1.3} ${cy+r*2.2}Q${cx} ${cy+r*.9} ${cx+r*1.3} ${cy+r*2.2}Z' fill='hsl(${h%360},60%,45%)' ${k}/><circle cx='${cx}' cy='${cy}' r='${r}' fill='#ffe3c8' ${k}/>`;
+ if(v==0)s+=`<path d='M${cx-r-4} ${cy+4}Q${cx-r} ${cy-r*1.5} ${cx} ${cy-r*1.25}Q${cx+r} ${cy-r*1.5} ${cx+r+4} ${cy+4}Q${cx} ${cy-r*.45} ${cx-r-4} ${cy+4}Z' fill='${hc}' ${k}/>`;
+ if(v==1){let q='';for(let i=0;i<7;i++){const a=Math.PI+i*Math.PI/6;q+=`${cx+Math.cos(a)*r*1.6},${cy+Math.sin(a)*r*1.6} ${cx+Math.cos(a+.26)*r*.98},${cy+Math.sin(a+.26)*r*.98} `}s+=`<polygon points='${q}' fill='${hc}' ${k}/>`}
+ if(v==2)s+=`<path d='M${cx-r-4} ${cy}Q${cx-r} ${cy-r*1.4} ${cx} ${cy-r*1.2}Q${cx+r} ${cy-r*1.4} ${cx+r+4} ${cy}L${cx+r*1.3} ${cy+r*1.5}L${cx+r*.7} ${cy}Q${cx} ${cy-r*.5} ${cx-r*.7} ${cy}L${cx-r*1.3} ${cy+r*1.5}Z' fill='${hc}' ${k}/>`;
+ const e=r*.36;for(const d of[-1,1]){const x=cx+d*e;s+=`<ellipse cx='${x}' cy='${cy+r*.1}' rx='${r*.17}' ry='${m==2?r*.06:r*.22}' fill='#fff' ${k}/>`+(m==2?'':`<circle cx='${x}' cy='${cy+r*.14}' r='${r*.09}' fill='#111'/>`)+(m==1?`<path d='M${x-d*r*.25} ${cy-r*.25}L${x+d*r*.2} ${cy-r*.12}' ${k}/>`:'')}
+ return s+(m==2?`<path d='M${cx-r*.25} ${cy+r*.5}Q${cx} ${cy+r*.8} ${cx+r*.25} ${cy+r*.5}' fill='none' ${k}/>`:`<path d='M${cx-r*.18} ${cy+r*.55}L${cx+r*.18} ${cy+r*.55}' ${k}/>`)}
+function coverArt(t,h,v){return 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 560'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='hsl(${h},75%,55%)'/><stop offset='1' stop-color='hsl(${(h+70)%360},70%,18%)'/></linearGradient></defs><rect width='400' height='560' fill='url(#g)'/><circle cx='200' cy='250' r='190' fill='#fff' opacity='.12'/>${face(200,240,100,v,h+v*50,v)}<rect y='440' width='400' height='120' fill='#000' opacity='.55'/><text x='200' y='510' fill='#fff' font-size='40' font-weight='800' text-anchor='middle' font-family='Tahoma,sans-serif'>${esc(t)}</text></svg>`)}
+function page(h,ch,p){const L=PL[(ch+p)%3];let s=`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 700 980'><rect width='700' height='980' fill='#fff'/>`;
+ L.forEach(([x,y,w,hh],i)=>{const cx=x+w/2,cy=y+hh*.45,r=Math.min(w,hh)*.2,v=(i+ch+p)%3,bg=(i+p)%3;
+ s+=`<clipPath id='c${i}'><rect x='${x}' y='${y}' width='${w}' height='${hh}'/></clipPath><g clip-path='url(#c${i})'><rect x='${x}' y='${y}' width='${w}' height='${hh}' fill='hsl(${(h+bg*40)%360},${bg==2?20:70}%,${bg==1?82:90}%)'/>`;
+ if(bg==0)for(let k=0;k<28;k++){const a=k*Math.PI/14;s+=`<path d='M${cx} ${cy}L${cx+Math.cos(a)*800} ${cy+Math.sin(a)*800}' stroke='#222' stroke-opacity='.25' stroke-width='${2+k%3}'/>`}
+ if(bg==1)for(let k=0;k<14;k++)s+=`<circle cx='${x+(k*53)%w}' cy='${y+(k*37)%hh}' r='${6+k%5}' fill='hsl(${h%360},60%,70%)' opacity='.5'/>`;
+ s+=face(cx,cy,r,v,h+v*50,(i+p)%3)+`</g><rect x='${x}' y='${y}' width='${w}' height='${hh}' fill='none' stroke='#111' stroke-width='5'/>`;
+ const rx=Math.min(w*.3,120),bx=x+rx+14;s+=`<ellipse cx='${bx}' cy='${y+44}' rx='${rx}' ry='30' fill='#fff' stroke='#111' stroke-width='3'/><text x='${bx}' y='${y+50}' font-size='18' text-anchor='middle' font-family='Tahoma,sans-serif' fill='#111'>${LN[(i*3+ch+p)%8]}</text>`});
+ return 'data:image/svg+xml;utf8,'+encodeURIComponent(s+'</svg>')}
+function echoPages(){const H="font-family='Tahoma,sans-serif'",W=b=>'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 700 980'>${b}</svg>`),
+ rain=(x,y,w,h,n)=>{let t='';for(let i=0;i<n;i++)t+=`<path d='M${x+(i*97)%w} ${y+(i*53)%h}l-8 26' stroke='#9bb' stroke-opacity='.55' stroke-width='2'/>`;return t},
+ bub=(cx,cy,rx,t)=>`<ellipse cx='${cx}' cy='${cy}' rx='${rx}' ry='34' fill='#fff' stroke='#111' stroke-width='3'/><text x='${cx}' y='${cy+7}' font-size='19' text-anchor='middle' ${H} fill='#111'>${t}</text>`,
+ pn=(x,y,w,h,c)=>`<clipPath id='k${x}${y}'><rect x='${x}' y='${y}' width='${w}' height='${h}'/></clipPath><g clip-path='url(#k${x}${y})'><rect x='${x}' y='${y}' width='${w}' height='${h}' fill='#16203f'/>${rain(x,y,w,h,36)}${c}</g><rect x='${x}' y='${y}' width='${w}' height='${h}' fill='none' stroke='#111' stroke-width='6'/>`;
+ let sk='';for(let i=0;i<11;i++){const w=50+(i*23)%40,x=10+i*62,h=260+(i*89)%300;sk+=`<path d='M${x} 760V${760-h}l${w*.4} ${-(i%3)*14}l${w*.6} ${(i%2)*22}V760Z' fill='#0d1224' stroke='#445' stroke-width='2'/>`+(i%3?'':`<rect x='${x+8}' y='${760-h+30}' width='8' height='12' fill='#ffd66b'/>`)}
+ const p1=W(`<defs><linearGradient id='s' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#0a0f24'/><stop offset='1' stop-color='#3a4a7a'/></linearGradient></defs><rect width='700' height='980' fill='url(#s)'/><ellipse cx='200' cy='120' rx='260' ry='80' fill='#1a2140'/><ellipse cx='520' cy='210' rx='240' ry='70' fill='#222b52'/><polygon points='470,140 430,300 480,300 440,470 540,270 490,270 530,140' fill='#fff7c2' stroke='#fff' stroke-width='3'/>${sk}<rect y='760' width='700' height='220' fill='#070a16'/>${rain(0,0,700,980,90)}<rect x='20' y='20' width='660' height='940' fill='none' stroke='#fff' stroke-width='6'/><rect x='40' y='40' width='430' height='74' fill='#fff' stroke='#111' stroke-width='3'/><text x='255' y='88' font-size='22' text-anchor='middle' ${H} fill='#111'>في عام 2086، لم تعد الأرض كما كانت...</text><text x='540' y='900' font-size='64' font-weight='900' text-anchor='middle' ${H} fill='#ffd66b' stroke='#111' stroke-width='3'>دووووم</text>`);
+ const a=pn(360,20,320,520,`<path d='M440 290L600 290L650 540L390 540Z' fill='#1e2a4a' stroke='#111' stroke-width='4'/>${face(520,170,62,1,215,0)}<circle cx='520' cy='420' r='34' fill='#6cf' opacity='.35'/><circle cx='520' cy='420' r='16' fill='#dff' stroke='#111' stroke-width='3'/><circle cx='520' cy='420' r='26' fill='#ffe3c8' opacity='.0'/>${bub(520,495,150,'هل كان هذا ما تبحث عنه يا أبي؟')}`),
+ b=pn(20,20,320,520,`<circle cx='180' cy='280' r='130' fill='#6cf' opacity='.35'/><circle cx='180' cy='280' r='85' fill='#9ef' opacity='.6'/><circle cx='180' cy='280' r='50' fill='#eaffff' stroke='#111' stroke-width='5'/><circle cx='180' cy='280' r='28' fill='none' stroke='#6cf' stroke-width='6'/><text x='180' y='90' font-size='34' font-weight='900' text-anchor='middle' ${H} fill='#6cf' stroke='#111' stroke-width='2'>بييييب.. بييييب..</text>`),
+ c=pn(20,560,660,400,`<ellipse cx='350' cy='770' rx='270' ry='120' fill='#fff' stroke='#111' stroke-width='5'/><circle cx='350' cy='770' r='105' fill='#2b2f55' stroke='#111' stroke-width='5'/><circle cx='350' cy='770' r='50' fill='#05060d'/><circle cx='318' cy='738' r='30' fill='#6cf'/><circle cx='390' cy='800' r='12' fill='#bff'/><path d='M70 740Q350 560 630 740' fill='none' stroke='#111' stroke-width='14'/><path d='M80 690Q350 590 620 690' fill='none' stroke='#111' stroke-width='8'/>${bub(520,610,140,'مستحيل... إنها تعمل!')}`);
+ return [p1,W(`<rect width='700' height='980' fill='#fff'/>${a}${b}${c}`)]}
+async function addEcho(){if(!await ask('إضافة عمل «صدى الأثير» (الفصل 1) من ملفك؟'))return;try{const ref=db.collection('works').doc();await ref.set({title:'صدى الأثير',author:'صاحب المنصة',cat:'خيال علمي',status:'ongoing',desc:'شونين / خيال علمي — في عام 2086 يقف ريان تحت المطر في مدينة مدمرة جزئيًا، وبين يديه قلادة غريبة مضيئة.',cover:coverArt('صدى الأثير',215,1),owner:uid,at:Date.now()});await db.doc('works/'+ref.id+'/chapters/c1').set({n:1,t:'البداية الجديدة',pages:echoPages(),at:Date.now()});toast('تمت الإضافة ✅')}catch(e){toast(e.message||'فشل')}}
+async function demo(){if(!await ask('إضافة 6 أعمال أصلية بشخصيات ورسومات من تصميمي؟'))return;toast('جارٍ التحميل…');const T=['ظلال الفجر','مدينة الغيم','قلب الزجاج','حارس النجوم','مقهى الأشباح','رسائل المطر'];
+ try{for(let i=0;i<6;i++){const h=i*57,ref=db.collection('works').doc();await ref.set({title:T[i],author:'فريق MangaVerse',cat:CATS[i%7],status:i%2?'مستمرة':'مكتملة',desc:'عمل أصلي بشخصيات ورسومات مبتكرة خصيصًا للمنصة.',cover:coverArt(T[i],h,i%3),owner:uid,at:Date.now()-i});
+ for(let c=1;c<=3;c++)await db.doc('works/'+ref.id+'/chapters/c'+c).set({n:c,t:'الفصل '+c,pages:[1,2,3].map(p=>page(h,c,p)),at:Date.now()})}toast('تم التحميل ✅')}catch(e){toast(e.message||'فشل')}}
+$('#th').onclick=()=>{const d=document.documentElement,dk=getComputedStyle(d).getPropertyValue('--bg').trim()=='#0b0d1a';d.dataset.theme=dk?'light':'dark'};
+(async()=>{render();
+ db=await claude.use('db');usr=await claude.use('user');as=await claude.use('assets');
+ if(!db){$('#view').innerHTML='<div class="empty"><i>⚠️</i>افتح الموقع من claude.ai لتفعيل قاعدة البيانات</div>';return}
+ if(usr){admin=usr.canEdit();canW=usr.can('data.write')!==false;try{uid=await usr.id()}catch(e){}}
+ db.collection('works').orderBy('at','desc').limit(300).onSnapshot(s=>{W=s.docs.map(d=>({id:d.id,...d.data()}));tab!='pub'&&render()},()=>{});
+ db.collection('featured').onSnapshot(s=>{FT=new Set(s.docs.map(d=>d.id));tab!='pub'&&render()},()=>{});
+ db.collection('hidden').onSnapshot(s=>{HD=new Set(s.docs.map(d=>d.id));tab!='pub'&&render()},()=>{});
+ if(uid)db.doc('data/users/'+uid+'/lib').onSnapshot(s=>{if(s.exists){const d=s.data();lib={fav:d.fav||[],hist:d.hist||{}}}tab!='pub'&&render()},()=>{});
+ tabs()})();
+</script>
+</body>
+</html>
